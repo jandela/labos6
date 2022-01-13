@@ -22,7 +22,23 @@ namespace MyLibrary
             base.OnShown(e);
 
             Login login = new Login();
+            login.UserLoggedIn += Login_UserLoggedIn;
             login.Show(this);
+        }
+
+        private void Login_UserLoggedIn(object sender, EventArgs e)
+        {
+            //MessageBox.Show("Ulogirano");
+            using (DataSet ds = new DataSet())
+            {
+                ds.ReadXml("popisKnjiga.xml");
+                GridViewData.DataSource = ds.Tables[0];
+            }
+        }
+
+        private void buttonExit_Click(object sender, EventArgs e)
+        {
+            Close();
         }
     }
 }
